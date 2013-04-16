@@ -1,0 +1,25 @@
+@import "partial/mixins.less";
+@import "partial/variables.less";
+
+@monoFontFamily: "Source Code Pro", Monaco, Menlo, Consolas, "Courier New", monospace;
+@sansFontFamily: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+@import "partial/table.less";
+@import "partial/method.less";
+
+body, input, textarea, button, select {
+	font-family: @sansFontFamily;
+}
+
+code, pre {
+	color: @blueDark;
+	font-family: @monoFontFamily;
+	font-size: @baseFontSize - 2px;
+}
+
+footer {
+	color: #ccc;
+	font-size: 11px;
+	margin: 40px 0 20px 0;
+	text-align: center;
+}

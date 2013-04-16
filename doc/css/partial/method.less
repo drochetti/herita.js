@@ -1,0 +1,74 @@
+
+div.method {
+  border-top: 1px solid darken(@grayLighter, 4%);
+  border-left: 2px solid @white;
+  .transition(~"border linear .1s");
+  #gradient > .vertical-three-colors(
+    #fafafa, #fefefe, 40%, @white);
+
+  &:hover {
+    border-left: 2px solid @blueDark;
+  }
+
+  h4.name {
+    color: darken(@blue, 6%);
+    font-family: @monoFontFamily;
+    font-size: @baseFontSize - 1px;
+    code {
+      font-size: inherit;
+    }
+    .signature {
+      color: @gray;
+      display: inline-block;
+      font-weight: normal;
+      margin-left: 2px;
+    }
+  }
+
+  dt.method-signature {
+    border-top: 1px solid @white;
+    border-bottom: 1px solid @grayLighter;
+    padding: 10px 5px;
+    font-family: @monoFontFamily;
+    em.return-type {
+      color: @blueDark;
+      font-weight: normal;
+      font-style: normal;
+    }
+  }
+ 
+  dd.method-info {
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: @baseFontSize - 2px;
+    p {
+      line-height: @baseLineHeight + 2px;
+    }
+    .table {
+      width: 90%;
+      min-width: 400px;
+    }
+    div.param-desc {
+      padding-left: 10px;
+    }
+  }
+ 
+}
+
+.type-signature {
+  .label {
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: @baseFontSize - 3px;
+    &.label-private {
+      background: #f89406;
+    }
+    &.label-deprecated {
+      background: #9d261d;
+    }
+    &.label-static {
+      background: #555;
+      font-style: italic;
+    }
+  }
+}

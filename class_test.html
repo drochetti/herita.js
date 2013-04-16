@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+<!--
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+-->
+        <script src="build/herita.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+
+		var Flyable = Interface.extend('app.mixin.Flyable', {
+			fly : function() {
+				console.log('flyyyiing!');
+			}
+		});
+
+		var Logger = Aspect.define('app.util.Logger', {
+			Before : {
+				speak : function() {
+					console.log('[Logger] before the speak function');
+				}
+			}
+		});
+		console.log('Logger.extend = ' + Logger.extend);
+		console.log('Logger.define = ' + Logger.define);
+
+		var Animal = Class.extend('app.model.Animal', {
+			Implements : [ Flyable ],
+			AdvisedBy : [ Logger ],
+			Static : {
+				COUNT : 2,
+				staticMethod : function() {
+					console.log('staticMethod this = ' + this);
+				}
+			},
+			init : function(attributes) {
+				console.log('calling constructor');
+				this.callSuper(attributes);
+			},
+			Private : {
+				privateAttr : 1,
+				doSomething : function() {
+					console.log('private method - doSomething');
+				}
+			},
+			Public : {
+				name : 'default',
+				getPrivateAttr : function() {
+					return this.privateAttr;
+				},
+				setPrivateAttr : function(newValue) {
+					this.privateAttr = newValue;
+				},
+				speak : function() {
+					console.log('Hello ' + this.name);
+					console.log('[Animal] inside private method = ' + this.doSomething);
+				},
+				otherMethod : function() {
+					console.log('some method defined in Animal class');
+				}
+			}
+		});
+		console.log('animal class = ' + Animal);
+		console.log('Animal.getClassName() = ' + Animal.getName());
+		console.log('Animal.getQualifiedClassName() = ' + Animal.getQualifiedName());
+		console.log('Animal.getNamespace() = ' + Animal.getNamespace());
+		var someAnimal = new Animal({
+			name : 'Daniel'
+		});
+		console.log('animal instanceof = ' + (someAnimal instanceof Animal));
+		console.log('animal instanceof (via is) = ' + someAnimal.isInstanceOf(Animal));
+		console.log('animal instanceof Flyable (via is) = ' + someAnimal.isInstanceOf(Flyable));
+		console.log('Animal.COUNT = ' + Animal.COUNT);
+		console.log('animal instance = ' + someAnimal);
+		console.log('animal speak function ref = ' + someAnimal.speak);
+		console.log('animal private doSomething function ref = ' + someAnimal.doSomething);
+		Animal.staticMethod();
+		someAnimal.getType().staticMethod();
+		someAnimal.speak();
+		someAnimal.otherMethod();
+
+		console.log('-------------------------');
+
+		var someOtherAnimal = new Animal();
+		console.log(someAnimal.__private__ === someOtherAnimal.__private__);
+		console.log(someAnimal.getPrivateAttr() === someOtherAnimal.getPrivateAttr());
+		console.log(someAnimal.getPrivateAttr());
+		console.log(someOtherAnimal.getPrivateAttr());
+		someAnimal.setPrivateAttr(2);
+		console.log(someAnimal.getPrivateAttr() === someOtherAnimal.getPrivateAttr());
+		console.log(someAnimal.getPrivateAttr());
+		console.log(someOtherAnimal.getPrivateAttr());
+
+		someOtherAnimal.name = 'Daniel2';
+		console.log(someAnimal.name);
+		console.log(someOtherAnimal.name);
+
+		console.log('-------------------------');
+
+		var Horse = Animal.extend('app.model.Horse', {
+			Public : {
+				speak : function() {
+					console.log('iihuhnhunhunh');
+					console.log('[Horse] private method from Animal = ' + this.doSomething);
+					this.callSuper();
+				}
+			}
+		});
+		var oneHorse = new Horse({
+			name : 'cavalinho!'
+		});
+		oneHorse.speak();
+		oneHorse.otherMethod();
+		console.log('Horse class = ' + Horse);
+		console.log('Horse.COUNT = ' + Horse.COUNT);
+		console.log('oneHorse instanceof Animal = ' + (oneHorse instanceof Animal));
+		console.log('oneHorse instanceof Horse = ' + (oneHorse instanceof Horse));
+		console.log('oneHorse superclass (not overridden) method reference = ' + oneHorse.otherMethod);
+		console.log('oneHorse private method from animal = ' + oneHorse.doSomething);
+        </script>
+    </body>
+</html>
